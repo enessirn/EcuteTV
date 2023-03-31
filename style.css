@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+header {
+    width: 100vw;
+    height: 800px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+header::before{
+    content: '';
+    position: absolute;
+    width: 100vw;
+    height: 200px;
+    background: linear-gradient(to bottom,#161616,transparent);
+    z-index: 0;
+}
+header::after{
+    content: '';
+    position: absolute;
+    width: 100vw;
+    height: 200px;
+    background: linear-gradient(to top,#161616,transparent);
+    bottom: 0;
+}
+.header-bg {
+    position: absolute;
+    width: 100vw;
+    height: 800px;
+    z-index: -100;
+    filter: blur(7px);
+}
+.header-bg img {
+    width: 100vw;
+    height: 800px;
+   object-fit: cover;
+}
+a {
+    text-decoration: none !important;
+}
+.menu {
+    position: relative;
+   width: 100vw;
+   height: 60px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: transparent;
+   z-index: 100;
+   padding: 0 14px;
+   padding-top: 24px;
+   user-select: none;
+   -moz-user-select: none;
+   -webkit-user-select: none;
+}
+.logo{
+    color: #c8143b;
+    font-size: 36px;
+    font-weight: 800;
+}
+.header-buttons{
+    color: #a5a59e;
+    padding: 8px 32px;
+    font-size: 18px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 40px;
+    font-weight: 400;
+}
+.header-button-active {
+    background-color: #383838 !important;
+    color: #fff !important;
+}
+.menu div:nth-child(3) *{
+    color: #fff;
+    font-size: 18px;
+    margin-right: 24px;
+    cursor: pointer;
+}
+.header-movies-details-content {
+    margin: auto;
+    margin-top: 50px;
+    width: 70%;
+    display: flex;
+}
+.header-movie-img,
+.header-movie-img img{
+    width: 300px;
+    
+   
+}
+.header-movie-img img{
+box-shadow: -2px 0 10px 0px #161616;
+}
+.header-movie-details {
+    width: 100%;
+    padding: 12px 24px;
+}
+.header-movie-text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 42px;
+    margin-bottom: 5px;
+}
+.header-movie-year {
+    font-size: 28px;
+    color: #fff;
+    font-weight: 200;
+}
+.header-movie-time-type-details {
+    display: flex;
+    gap: .4rem;
+    color:  #fff;
+    margin-bottom: 12px;
+}
+.header-movie-time {
+   color: #eee;
+}
+.header-movie-type {
+    font-weight: 600;
+}
+.header-movie-rating {
+    display: flex;
+   
+}
+.fa-star {
+    font-size: 36px;
+    margin-top: 10px;
+    margin-right: 12px;
+    cursor: pointer;
+}
+.star-yellow{
+    color: yellow;
+}
+.star-orange{
+    color: orange;
+}
+.star-red {
+    color: red;
+}
+.rat {
+    font-size: 36px;
+    color: #fff;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+.rat10 {
+    margin-top: 20px;
+    margin-left: 5px;
+    color: #d1d1d1;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+.imdb-logo,
+.imdb-logo img {
+    width: 50px;
+    margin-top: 10px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+.header-movie-desc {
+    width: 70%;
+    color: #fff;
+    min-height: 170px;
+    max-height: 170px;
+    overflow: hidden;
+}
+.header-movie-watch-buttons{
+    margin-top: 15px;
+    display: flex;
+    height: 45px;
+}
+.header-movie-watch-buttons button{
+   width: 250px;
+   height: 50px;
+   outline: none;
+   border: none;
+   border-radius: 18px;
+   cursor: pointer;
+   margin-right: 24px;
+   font-weight: 500;
+   font-size: 18px;
+}
+.header-movie-watch-buttons button:nth-child(1) {
+    background-color: #383838;
+    color: #a5a59e;
+}
+.header-movie-watch-buttons button:nth-child(2) {
+    background-color: #c8143b;
+    color: #fff;
+}
+.header-visionaries {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15%;
+    margin-top: 24px;
+    color: #fff;
+    position: absolute;
+}
+.vision-cards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
+}
+.vision-card {
+    width: 200px;
+    height: 100px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 0 15px black;
+    border-radius: 6px;
+    
+}
+.vision-card:nth-child(2)::before,
+.vision-card:nth-child(3)::before,
+.vision-card:nth-child(4)::before,
+.vision-card:nth-child(5)::before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    z-index: 200;
+    height: 110px;
+    background: rgba(0, 0, 0, .7);
+  
+  
+}
+.v-img {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    
+}
+.v-text {
+    position: relative;
+    z-index: 100;
+    top: -80px;
+    left: 20px;
+}
