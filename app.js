@@ -39,7 +39,6 @@ const OMDBAPI_KEY = '?apikey=114734b&'
             let headerMovieType = document.querySelector('.header-movie-type')
             let headerMovieImg = document.querySelector('#header-movie-img')
             let headerBg = document.querySelector('#headerBg')
-            console.log(data)
             headerMovieTime.textContent = data.Runtime
             headerMovieType.textContent = data.Genre
             headerMovieImg.src = data.Poster
@@ -47,3 +46,36 @@ const OMDBAPI_KEY = '?apikey=114734b&'
         })
     })
 
+// popular movies 
+const popularMovies = document.querySelectorAll('.vision-card')
+fetch(`${TMDB_BASE_URL}${TMDB_NOW_POPULAR_MOVIES_KEY}${TMDB_API_KEY_HEAD }${TMDB_API_KEY}`)
+.then(res => res.json())
+.then(data1 => {
+  
+     for(let i = 0; i< 5; i++) {
+
+        fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${data1.results[i].original_title}&y=${data1.results[i].release_date.substring(0,4)}&plot=full`)
+        .then(res2 => res2.json())
+        .then(data2 => {
+            popularMovieAdd(data2.Poster,data1.results[i].original_title)
+    })
+    }
+    
+    
+})
+var visionCardAll = document.querySelector('.vision-cards')
+function popularMovieAdd(img,txt) {
+  
+
+    let visionCard = document.createElement('div')
+    visionCard.classList.add('vision-card')
+    visionCard.style.backgroundImage = `url('${img}')`
+    visionCardAll.appendChild(visionCard)
+
+
+    let popularMovieText = document.createElement('p')
+    popularMovieText.classList.add('v-text')
+    popularMovieText.innerHTML = txt
+    visionCard.appendChild(popularMovieText)
+
+}
