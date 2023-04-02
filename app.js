@@ -67,6 +67,7 @@ fetch(`${TMDB_BASE_URL}${TMDB_NOW_POPULAR_MOVIES_KEY}${TMDB_API_KEY_HEAD }${TMDB
     
     
 })
+let visioncardindexCount = 0;
 var visionCardAll = document.querySelector('.vision-cards')
 function popularMovieAdd(img,txt) {
   
@@ -82,6 +83,8 @@ function popularMovieAdd(img,txt) {
     popularMovieText.innerHTML = txt
     visionCard.appendChild(popularMovieText)
 
+    visionCard.dataset.headerindex = visioncardindexCount;
+    visioncardindexCount ++
 }
 
 addEventListener('click',(e)=> {
@@ -102,3 +105,8 @@ addEventListener('click',(e)=> {
             
     }
 })
+
+// slider
+
+
+
