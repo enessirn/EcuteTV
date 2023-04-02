@@ -320,11 +320,21 @@ box-shadow: -2px 0 10px 0px #161616;
     gap: 1.5rem;
     color: #fff;
 }
-.last-added-movie-card {
+.last-added-movie-card,.card{
     display: flex;
     flex-direction: column;
     gap: .4rem;
 }
-.last-added-cards img {
+.last-added-cards img , .card img {
     width: 200px;
+}
+
+.all-movies {
+    width: 100%;
+    background: #1c1c1c;
+    padding: 5% 15%;
+    display: flex;
+    gap: 1.5rem;
+    color: #fff;
+    flex-wrap: wrap;
 }
