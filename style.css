@@ -275,58 +275,35 @@ box-shadow: -2px 0 10px 0px #161616;
     -moz-user-select: none;
     user-select: none;
 }
+.all-movies::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 100px;
+    left: 0;
+    background: linear-gradient(to bottom, #161616,#1c1c1c);
+    height: 20px;
+}
 .categories {
     display: flex;
     align-content: center;
-    gap: 2rem;
+    gap: 1rem;
     cursor: pointer;
 }
 .categories *:hover {
     color: #c8143b;
     transition: .4s color;
 }
-.last-added {
-    width: 100%;
-    height: 500px;
-    background: #0a0a0a;
-}
-.last-added::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 20px;
-    background: linear-gradient(to top, #0a0a0a,#161616);
-    z-index: 0;
-}
-.last-added::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 30px;
-    background: linear-gradient(to bottom, #0a0a0a,#1c1c1c);
-    z-index: 0;
-}
-.last-added-header {
-    color: #fff;
-    font-size: 24px;
-   padding: 30px 15%;
-}
-.last-added-cards {
-    padding: 15px 15%;
-}
-
-.last-added-cards{
-    display: flex;
-    gap: 1.5rem;
-    color: #fff;
-}
-.last-added-movie-card,.card{
+.card{
     display: flex;
     flex-direction: column;
     gap: .4rem;
+    cursor: pointer;
+    font-size: 18px;
 }
-.last-added-cards img , .card img {
+ .card img {
     width: 200px;
+    border-radius: 4px;
 }
 
 .all-movies {
