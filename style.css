@@ -231,6 +231,8 @@ box-shadow: -2px 0 10px 0px #161616;
     
 }
 .vision-card {
+    position: relative;
+    z-index: 2000;
     width: 200px;
     height: 100px;
     border-radius: 6px;
@@ -241,14 +243,15 @@ box-shadow: -2px 0 10px 0px #161616;
     background-repeat: none;
     background-size: cover;
     
-    
 }
+
 .brightness-active {
     filter: brightness(0.5);
 }
 .v-text {
    text-align: center;
    margin-top: 30px;
+   pointer-events: none;
 }
 
 /* header end */

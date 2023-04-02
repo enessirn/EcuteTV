@@ -14,15 +14,21 @@ const TMDB_NOW_YEAR_BEST_TV_LIST = `/discover/movie?with_genres=18&primary_relea
 const OMDBAPI_BASE_URL = 'http://www.omdbapi.com/'
 const OMDBAPI_KEY = '?apikey=114734b&'
 
+var headerMovieText = document.querySelector('.header-movie-text')
+var headerMovieYear = document.querySelector('.header-movie-year')
+var headerMovieRating = document.querySelector('.rat')
+var headerMovieDesc = document.querySelector('.header-movie-desc')
+var headerMovieTime = document.querySelector('.header-movie-time')
+var headerMovieType = document.querySelector('.header-movie-type')
+var headerMovieImg = document.querySelector('#header-movie-img')
+
+
 // popular movies header 
     // TMDB API
     fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=bf3cd4782b9e4403874602094b3d319c')
     .then(res=>res.json())
     .then(data => {
-        let headerMovieText = document.querySelector('.header-movie-text')
-        let headerMovieYear = document.querySelector('.header-movie-year')
-        let headerMovieRating = document.querySelector('.rat')
-        let headerMovieDesc = document.querySelector('.header-movie-desc')
+       
         
         headerMovieText.textContent = data.results[0].original_title
         headerMovieYear.textContent = data.results[0].release_date.substring(0,4)
@@ -35,9 +41,7 @@ const OMDBAPI_KEY = '?apikey=114734b&'
         fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${bestPopularMovieText}&y=${data.results[0].release_date.substring(0,4)}&plot=full`)
         .then(respon => respon.json())
         .then(data => {
-            let headerMovieTime = document.querySelector('.header-movie-time')
-            let headerMovieType = document.querySelector('.header-movie-type')
-            let headerMovieImg = document.querySelector('#header-movie-img')
+           
             let headerBg = document.querySelector('#headerBg')
             headerMovieTime.textContent = data.Runtime
             headerMovieType.textContent = data.Genre
@@ -79,3 +83,22 @@ function popularMovieAdd(img,txt) {
     visionCard.appendChild(popularMovieText)
 
 }
+
+addEventListener('click',(e)=> {
+    const eventTarget = e.target
+    if (eventTarget.classList[0] == 'vision-card') {
+        fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${eventTarget.textContent}&plot=full`)
+        .then(res => res.json())
+        .then(data=> {
+            headerMovieText.textContent = data.Title
+            headerMovieYear.textContent = data.Year
+            headerMovieRating.textContent = data.imdbRating
+            headerMovieDesc.textContent = data.Plot
+            headerMovieTime.textContent = data.Runtime
+            headerMovieType.textContent = data.Genre
+            headerMovieImg.src = data.Poster
+            headerBg.src = data.Poster
+        })
+            
+    }
+})
