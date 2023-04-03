@@ -68,6 +68,10 @@ let movielistButton = document.getElementById('movie-list')
 
 const movieList = [
     {
+        "name": "Popular",
+        "dataID" : 0
+    },
+    {
         "name": "Action",
         "dataID": 28
     },
@@ -146,6 +150,10 @@ const movieList = [
 ]
 const tvList = [
     {
+        "name": "Popular",
+        "dataID" : 0
+    },
+    {
         "name": "Action & Adventure",
         "dataID": 10759
     },
@@ -216,7 +224,6 @@ let listCategories = (array) =>{
         Categories.appendChild(category)
 
     }
-    console.log(array)
 }
 
 movielistButton.addEventListener("click",(()=> {
@@ -299,7 +306,7 @@ tvlistButton.addEventListener('click',(()=> {
             headerMovieTime.textContent = data2.Runtime
             headerMovieType.textContent = data2.Genre
             headerMovieImg.src = data2.Poster
-            headerBg.src = data2.Poster
+            headerBg.src = data2.Poster;
         })
 
     //    popular series 
@@ -308,7 +315,7 @@ tvlistButton.addEventListener('click',(()=> {
             fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${data1.results[i].original_title}&y=${data1.results[i].release_date.substring(0,4)}&plot=full`)
             .then(res2 => res2.json())
             .then(data2 => {
-                popularMovieAdd(data2.Poster,data1.results[i].original_title)
+                popularMovieAdd(data2.Poster,data1.results[i].original_title);
         })
         }
     })
