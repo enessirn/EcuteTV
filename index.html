@@ -14,7 +14,6 @@
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 <body>
     <header>
@@ -47,7 +46,6 @@
                 <div class="header-movie-year"></div>
                 <div class="header-movie-time-type-details">
                     <div class="header-movie-time">
-                        
                     </div>
                     <div>|</div>
                     <div class="header-movie-type">
@@ -79,25 +77,22 @@
         </div>
     </header>
     <!-- header end -->
-
     <div class="content">
         <div class="category-names">
             <div class="categories">
             </div>
         </div>
-
-
         <div class="all-movies">
-            <div class="card">
-                <img id="cardImg" src="https://m.media-amazon.com/images/M/MV5BMTc2MTQ3MDA1Nl5BMl5BanBnXkFtZTgwODA3OTI4NjE@._V1_.jpg">
-                <p id="cardText">The Martian</p>
-                <p id="cardYearText">2015</p>
+            <div id="active-category-name">Popular
+                <div class="page-number">
+                    <button>-</button>
+                    <input id="pageNumber" type="number" min="0" max="500" placeholder="Page Number">
+                    <button>+</button>
+                </div>
+                
             </div>
-           
-
         </div>
     </div>
-   
     <script src="app.js"></script>
 </body>
 </html>

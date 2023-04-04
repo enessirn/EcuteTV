@@ -249,8 +249,11 @@ box-shadow: -2px 0 10px 0px #161616;
     filter: brightness(0.5);
 }
 .v-text {
+   width: 100%;
+   height: 100%; 
+   background: rgba(0,0,0,.6);
    text-align: center;
-   margin-top: 30px;
+   padding-top: 30px;
    pointer-events: none;
 }
 
@@ -297,21 +300,97 @@ box-shadow: -2px 0 10px 0px #161616;
 .card{
     display: flex;
     flex-direction: column;
+    width: 200px;
+    height: 400px;
     gap: .4rem;
     cursor: pointer;
     font-size: 18px;
 }
+.card:hover {
+    color: #c8143b;
+
+    transition: .5s all;
+}
  .card img {
     width: 200px;
+    height: 300px;
+    object-fit: cover;
     border-radius: 4px;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+.card:hover img {
+    box-shadow: 0 10px 15px #c8143b;
+    transition: .5s all ease-in-out;
+}
+.card * {
+    width: 200px;
+    word-wrap: break-word;
+    pointer-events: none;
 }
 
 .all-movies {
     width: 100%;
+    height: 100%;
     background: #1c1c1c;
     padding: 5% 15%;
     display: flex;
     gap: 1.5rem;
     color: #fff;
     flex-wrap: wrap;
+}
+.pages {
+    position: absolute;
+    z-index: 5000;
+    background: red;
+}
+#active-category-name {
+    display: flex;
+    justify-content: space-between;
+    color: #c8143b;
+    width: 100%;
+    font-size: 36px;
+    font-weight: 700;
+    border-bottom: 5px solid #c8143b;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    cursor: pointer;
+}
+#pageNumber {
+    width: 150px;
+    height: 40px;
+    font-size: 32px;
+    outline: none;
+    border: none;
+    padding-left: 8px;
+}
+.page-number {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+}
+.page-number button {
+    width: 50px;
+    height: 50px;
+    font-size: 36px;
+    text-align: center;
+    border-radius: 30px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: #c8143b;
+    color: #fff;
+    font-weight: 600;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+::placeholder {
+    font-size: 18px;
 }
