@@ -30,6 +30,8 @@ let tvlistButton = document.getElementById('tv-list')
 let movielistButton = document.getElementById('movie-list')
 
 
+var allMovies = document.querySelector('.all-movies')
+
 function popularMovieAdd(img,txt) {
   
 
@@ -84,10 +86,6 @@ addEventListener('click',(e)=> {
 // categories
 let Categories = document.querySelector('.categories')
 const movieList = [
-    {
-        "name": "Popular",
-        "dataID" : 0
-    },
     {
         "name": "Action",
         "dataID": 28
@@ -167,10 +165,6 @@ const movieList = [
 ]
 const tvList = [
     {
-        "name": "Popular",
-        "dataID" : 0
-    },
-    {
         "name": "Action & Adventure",
         "dataID": 10759
     },
@@ -235,6 +229,7 @@ let listCategories = (array) =>{
     Categories.innerHTML = ""
     for (let index = 0; index < array.length; index++) {
         let category = document.createElement('div')
+        category.classList.add('category-name')
         category.textContent = array[index].name
         category.dataset.id = array[index].dataID
         Categories.appendChild(category)
@@ -243,7 +238,9 @@ let listCategories = (array) =>{
 }
 
 function movieHeaderClickList() {
+
     visioncardindexCount = 0
+    allMovies.innerHTML = ""
     const popularMovies = document.querySelector('.vision-cards')
     popularMovies.innerHTML = ""
     listCategories(movieList)
@@ -310,9 +307,10 @@ function genreIdConverter(bool,array) {
 
 function tvHeaderClickList() {
     visioncardindexCount = 0
+    allMovies.innerHTML = ""
     const popularMovies = document.querySelector('.vision-cards')
     popularMovies.innerHTML = ""
-    listCategories(movieList)
+    listCategories(tvList)
     movielistButton.classList.remove('header-button-active')
     tvlistButton.classList.add('header-button-active')
 
@@ -351,12 +349,6 @@ movielistButton.addEventListener("click",movieHeaderClickList)
 
 tvlistButton.addEventListener('click',tvHeaderClickList)
 
-
-movielistButton.click()
-
-// content start
-
-var allMovies = document.querySelector('.all-movies')
 function cardAdd(src,name,year) {
     let card = document.createElement('div')
     card.classList.add('card')
@@ -378,9 +370,37 @@ function cardAdd(src,name,year) {
 }
 
 function allMoviesList(type,id) {
-    fetch(`${TMDB_BASE_URL}/discover/${type}?with_genres=${id}&${TMDB_API_KEY}&page=1`)
+    allMovies.innerHTML = ""
+    fetch(`${TMDB_BASE_URL}/discover/${type}?with_genres=${id}${TMDB_API_KEY_HEAD}${TMDB_API_KEY}&page=1`)
     .then(response => response.json())
     .then(data => {
-
+        for(let i = 0; i < data.results.length; i++) {
+            if(type == "movie") {
+                cardAdd(`${TMBDB_IMAGE_URL}${data.results[i].poster_path}`,data.results[i].title,String(data.results[i].release_date).substring(0,4))
+            }
+            else {
+                cardAdd(`${TMBDB_IMAGE_URL}${data.results[i].poster_path}`,data.results[i].name,String(data.results[i].first_air_date).substring(0,4))
+            }
+            
+        }
     })
 }
+
+addEventListener('click', (e) => {
+    let eTarget = e.target
+
+    if(eTarget.classList[0] == 'category-name') {
+        if(movielistButton.classList[1] == "header-button-active") {
+            allMoviesList("movie",eTarget.dataset.id)
+            allMovies.innerHTML = `<div id="active-category-name">${eTarget.textContent}
+            `
+        }
+        else {
+            allMoviesList("tv",eTarget.dataset.id)
+            allMovies.innerHTML = `<div id="active-category-name">${eTarget.textContent}
+            `
+
+        }
+    }
+})
+movielistButton.click()

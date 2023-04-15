@@ -277,6 +277,9 @@ box-shadow: -2px 0 10px 0px #161616;
     -moz-user-select: none;
     user-select: none;
 }
+.category-name:active .category-name {
+    color: #c8143b !important;
+}
 .all-movies::before {
     content: '';
     position: absolute;
