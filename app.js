@@ -7,7 +7,8 @@ const TMDB_API_KEY = 'bf3cd4782b9e4403874602094b3d319c'
 const TMBDB_IMAGE_URL = 'https://image.tmdb.org/t/p/original'
 const TMDB_NOW_POPULAR_MOVIES_KEY = '/discover/movie?sort_by=popularity.desc'
 const TMDB_NOW_YEAR_BEST_TV_LIST = '/discover/tv?sort_by=popularity.desc'
-
+const TMDB_GENRE_MOVIE_LIST = '/discover/movie?with_genres=18&primary_release_year=2014'
+const TMDB_GENRE_TV_LIST = '/discover/tv?with_genres=18&primary_release_year=2014'
 
 
 // OMDBP API
@@ -376,24 +377,10 @@ function cardAdd(src,name,year) {
 
 }
 
-    fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=bf3cd4782b9e4403874602094b3d319c&page=1S&language=EN')
+function allMoviesList(type,id) {
+    fetch(`${TMDB_BASE_URL}/discover/${type}?with_genres=${id}&${TMDB_API_KEY}&page=1`)
     .then(response => response.json())
-    .then(data1 => {
-        for(let i = 0; i < data1.results.length; i++){
-            fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${data1.results[i].title}&plot=full`)
-            .then(res=> res.json())
-            .then(data2 => {
-                cardAdd(`${TMBDB_IMAGE_URL}${data1.results[i].poster_path}`,data1.results[i].title,data2.Year)
-            })
-        }
+    .then(data => {
+
     })
-    const pageCount = document.querySelector('#pageNumber')
-    function pagePlus() {
-       pageCount.value = Number(pageCount.value) + 1
-    }
-    function pageMin() {
-        if(Number(pageCount.value) > 1) {
-            pageCount.value = Number(pageCount.value) - 1
-        }
-        
-    }
+}
