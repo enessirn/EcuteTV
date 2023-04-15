@@ -18,7 +18,6 @@ var headerMovieText = document.querySelector('.header-movie-text')
 var headerMovieYear = document.querySelector('.header-movie-year')
 var headerMovieRating = document.querySelector('.rat')
 var headerMovieDesc = document.querySelector('.header-movie-desc')
-var headerMovieTime = document.querySelector('.header-movie-time')
 var headerMovieType = document.querySelector('.header-movie-type')
 var headerMovieImg = document.querySelector('#header-movie-img')
 var headerBg = document.querySelector('#headerBg')
@@ -59,6 +58,7 @@ addEventListener('click',(e)=> {
                 headerMovieText.textContent = data.results[0].title
                 headerMovieYear.textContent = data.results[0].release_date.substring(0,4)
                 headerMovieRating.textContent = String(data.results[0].vote_average).slice(0,3);
+                headerMovieType.textContent = genreIdConverter(true,data.results[0].genre_ids)
                 headerMovieDesc.textContent = data.results[0].overview
                 headerMovieImg.src = `${TMBDB_IMAGE_URL}${data.results[0].poster_path}`
                 headerBg.src = `${TMBDB_IMAGE_URL}${data.results[0].backdrop_path}`
@@ -68,8 +68,9 @@ addEventListener('click',(e)=> {
             fetch(`https://api.themoviedb.org/3/search/tv?api_key=${TMDB_API_KEY}&language=en-US&query=${eventTarget.textContent}&page=1&include_adult=false`)
             .then(response => response.json())
             .then(data=> {
-                headerMovieText.textContent = data.results[0].original_name
+                headerMovieText.textContent = data.results[0].name
                 headerMovieYear.textContent = data.results[0].first_air_date.substring(0,4)
+                headerMovieType.textContent = genreIdConverter(false,data.results[0].genre_ids)
                 headerMovieRating.textContent = String(data.results[0].vote_average).slice(0,3);
                 headerMovieDesc.textContent = data.results[0].overview
                 headerMovieImg.src = `${TMBDB_IMAGE_URL}${data.results[0].poster_path}`
@@ -239,6 +240,7 @@ let listCategories = (array) =>{
 
     }
 }
+
 function movieHeaderClickList() {
     visioncardindexCount = 0
     const popularMovies = document.querySelector('.vision-cards')
@@ -253,22 +255,14 @@ function movieHeaderClickList() {
     .then(data => {
        
         
-        headerMovieText.textContent = data.results[0].original_title
+        headerMovieText.textContent = data.results[0].title
         headerMovieYear.textContent = data.results[0].release_date.substring(0,4)
         headerMovieRating.textContent = String(data.results[0].vote_average).slice(0,3)
         headerMovieDesc.textContent = data.results[0].overview
         headerMovieImg.src = `${TMBDB_IMAGE_URL}${data.results[0].poster_path}` 
-        
+        headerMovieType.textContent = genreIdConverter(true,data.results[0].genre_ids)
         headerBg.src = `${TMBDB_IMAGE_URL}${data.results[0].backdrop_path}` 
-        let bestPopularMovieText = data.results[0].original_title
 
-        //  OMDBAPI
-        fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${bestPopularMovieText}&y=${data.results[0].release_date.substring(0,4)}&plot=full`)
-        .then(respon => respon.json())
-        .then(data => {
-            headerMovieTime.textContent = data.Runtime
-            headerMovieType.textContent = data.Genre
-        })
     })
     // popular 0index headerend
 
@@ -288,6 +282,30 @@ function movieHeaderClickList() {
     })
     // popular movies cards header end
 }
+function genreIdConverter(bool,array) {
+    let isMovie = bool
+    let genreFullText = ""
+    if(isMovie == true) {
+       for(let i = 0; i < array.length; i++) {
+        movieList.filter(movieGender => {
+            if (movieGender.dataID == array[i]) {
+                genreFullText += `${movieGender.name}, `
+            }
+        })
+       }
+    }
+    else {
+        for(let i = 0; i < array.length; i++) {
+            movieList.filter(seriesGender => {
+                if (seriesGender.dataID == array[i]) {
+                    genreFullText += `${seriesGender.name}, `
+                    
+                }
+            })
+           }
+    }
+    return genreFullText
+}
 
 function tvHeaderClickList() {
     visioncardindexCount = 0
@@ -301,24 +319,13 @@ function tvHeaderClickList() {
     fetch('https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=bf3cd4782b9e4403874602094b3d319c')
     .then(res=>res.json())
     .then(data => {
-       
-        
-        headerMovieText.textContent = data.results[0].original_name
-        headerMovieYear.textContent = data.results[0].release_date.substring(0,4)
+        headerMovieText.textContent = data.results[0].name
+        headerMovieYear.textContent = String(data.results[0].first_air_date).substring(0,4)
+        headerMovieType.textContent = genreIdConverter(false,data.results[0].genre_ids)
         headerMovieRating.textContent = String(data.results[0].vote_average).slice(0,3)
         headerMovieDesc.textContent = data.results[0].overview
         headerMovieImg.src = `${TMBDB_IMAGE_URL}${data.results[0].poster_path}` 
-        
         headerBg.src = `${TMBDB_IMAGE_URL}${data.results[0].backdrop_path}` 
-        let bestPopularMovieText = data.results[0].original_name
-
-        //  OMDBAPI
-        fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${bestPopularMovieText}&y=${data.results[0].release_date.substring(0,4)}&plot=full`)
-        .then(respon => respon.json())
-        .then(data => {
-            headerMovieTime.textContent = data.Runtime
-            headerMovieType.textContent = data.Genre
-        })
     })
     // popular 0index headerend
 
@@ -331,7 +338,7 @@ function tvHeaderClickList() {
     .then(data => {
 
         for(let i = 0; i< 5; i++) {
-            popularMovieAdd(`${TMBDB_IMAGE_URL}${data.results[i].poster_path}`,data.results[i].original_name)
+            popularMovieAdd(`${TMBDB_IMAGE_URL}${data.results[i].poster_path}`,data.results[i].name)
         }
         
         
@@ -369,14 +376,14 @@ function cardAdd(src,name,year) {
 
 }
 
-    fetch('https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=bf3cd4782b9e4403874602094b3d319c&page=20&language=EN')
+    fetch('https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=bf3cd4782b9e4403874602094b3d319c&page=1S&language=EN')
     .then(response => response.json())
     .then(data1 => {
         for(let i = 0; i < data1.results.length; i++){
             fetch(`${OMDBAPI_BASE_URL}${OMDBAPI_KEY}t=${data1.results[i].title}&plot=full`)
             .then(res=> res.json())
             .then(data2 => {
-                cardAdd(`${TMBDB_IMAGE_URL}${data1.results[i].poster_path}`,data1.results[i].name,data2.Year)
+                cardAdd(`${TMBDB_IMAGE_URL}${data1.results[i].poster_path}`,data1.results[i].title,data2.Year)
             })
         }
     })
